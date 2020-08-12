@@ -1,10 +1,10 @@
 // let's not upload API keys to github ...
 import {spotifyApiKey} from './apikey';
+import { SearchBar } from "../Components/SearchBar/SearchBar";
 
-let accessToken;
-
-const clientId = {spotifyApiKey};
-const redirectURI = 'http://localhost:3000/';
+let accessToken = '';
+const redirectUri = 'http://localhost:3000/';
+const clientId = `${spotifyApiKey}`;
 
 const Spotify = {
 
@@ -21,7 +21,7 @@ const Spotify = {
             window.history.pushState('Access Token', null, '/');
             return accessToken;
         } else {
-            window.location.assign(`https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectURI}`);
+            window.location.assign(`https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectUri}`);
         }
     },
 
@@ -52,8 +52,8 @@ const Spotify = {
         })
     },
 
-    savePlaylist(name, trackURIs) {
-        if (!name || !trackURIs) {
+    savePlaylist(name, trackUris) {
+        if (!name || !trackUris) {
             return;
         } else {
             let userId = '';
@@ -85,7 +85,7 @@ const Spotify = {
                     Content_type: 'application/json'
                 },
                 body: JSON.stringify({
-                    uris: trackURIs
+                    uris: trackUris
                 })
             })
             .then(response => {
